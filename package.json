@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "lint": "eslint . --fix --ext .js,.ts,.vue"
+    "lint": "eslint . --fix --ext .js,.ts,.vue",
+    "preview": "vite preview"
   },
   "dependencies": {
     "scrollreveal": "^4.0.9",
