@@ -7,6 +7,7 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
+    "scrollreveal": "^4.0.9",
     "vue": "^3.0.5"
   },
   "devDependencies": {
