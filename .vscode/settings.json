@@ -2,7 +2,7 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
-    "eslint.validate": ["javascript"],
+    "eslint.validate": ["javascript", "typescript"],
     "emmet.includeLanguages": {
         "vue": "html",
         "vue-html": "html",
