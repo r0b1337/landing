@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "bradlc.vscode-tailwindcss",
+        "johnsoncodehk.volar",
+        "xabikos.javascriptsnippets",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "hollowtree.vue-snippets"
+    ]
+}
