@@ -9,6 +9,7 @@
     },
     "conventionalCommits.scopes": [
         "assets",
-        "settings"
+        "settings",
+        "components"
     ]
 }
