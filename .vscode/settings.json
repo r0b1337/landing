@@ -6,5 +6,8 @@
     "emmet.includeLanguages": {
         "vue": "html",
         "vue-html": "html",
-    }
+    },
+    "conventionalCommits.scopes": [
+        "assets"
+    ]
 }
