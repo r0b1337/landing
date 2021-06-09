@@ -1,0 +1,18 @@
+<svg version="1.2" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1100" width="1000" height="1100">
+	<title>neocity-svg</title>
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: #f94849 } 
+		.shp1 { fill: #6eb8e7 } 
+		.shp2 { fill: #249ddb } 
+		.shp3 { fill: #298be2 } 
+		.shp4 { fill: #fb696a } 
+		.shp5 { fill: #ff9999 } 
+	</style>
+	<path class="shp0" d="M963 816.58L500.5 1083.65L500.34 912.71L814.96 731.18L963 816.58Z" />
+	<path class="shp1" d="M500.34 912.71L500.5 1083.65L38 816.58L185.96 731.04L500.34 912.71Z" />
+	<path class="shp2" d="M185.96 731.04L38 816.58L37.5 282.42L185.88 368.11L185.96 731.04Z" />
+	<path class="shp3" d="M185.88 368.1L37.5 282.42L500 15.35L500 186.29L185.88 368.1Z" />
+	<path class="shp4" d="M963 282.42L963 816.58L814.96 731.18L814.96 367.82L963 282.42Z" />
+	<path class="shp5" d="M500 15.35L963 282.42L814.96 367.82L500 186.29L500 15.35Z" />
+</svg>
