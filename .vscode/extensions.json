@@ -5,6 +5,9 @@
         "xabikos.javascriptsnippets",
         "dbaeumer.vscode-eslint",
         "eamodio.gitlens",
-        "hollowtree.vue-snippets"
+        "hollowtree.vue-snippets",
+        "formulahendry.auto-close-tag",
+        "formulahendry.auto-rename-tag",
+        "vivaxy.vscode-conventional-commits"
     ]
 }
