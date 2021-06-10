@@ -10,6 +10,7 @@
     "conventionalCommits.scopes": [
         "assets",
         "settings",
-        "components"
+        "components",
+        "deps"
     ]
 }
