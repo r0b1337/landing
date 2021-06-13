@@ -70,27 +70,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import ScrollReveal from 'scrollreveal';
 
 export default defineComponent({
   name: 'App',
   mounted() {
-    ScrollReveal({
-      interval: 50,
-      delay: 100,
-      easing: 'ease-out',
-    }).reveal('span', {
-      opacity: 0,
-      duration: 500,
-      distance: '10px',
-    });
-
-    ScrollReveal().reveal('.card', {
-      opacity: 0,
-      rotate: { z: 100 },
-      scale: 0,
-      easing: 'cubic-bezier(.75,-0.5,0,1.45)',
-    });
   },
   methods: {
     scrollTo: function (hash: string) {
