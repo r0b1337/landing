@@ -35,7 +35,7 @@
         </div>
         <span class="text-2xl">for 2 years now</span>
         <span
-          class="text-left text-1xl max-w-xl mt-10 mb-2"
+          class="text-reveal text-left text-1xl max-w-xl mt-10 mb-2"
         >
           Et ea commodo proident non nisi labore ipsum nisi veniam fugiat id. Velit sunt laboris exercitation amet laborum incididunt elit laboris elit in minim nulla Lorem. Esse in nulla amet deserunt ex dolor velit amet labore amet in id. Ea nulla qui ut ut nulla nostrud. Commodo esse labore reprehenderit ex nisi sunt nostrud commodo consequat.
 
@@ -68,12 +68,42 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent } from 'vue';
+
+// animations
+import GSAP from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import TextPlugin from 'gsap/TextPlugin';
+import SplitText from './utils/split-text';
+
+GSAP.registerPlugin(ScrollTrigger);
+GSAP.registerPlugin(TextPlugin);
 
 export default defineComponent({
   name: 'App',
   mounted() {
+    const NeocityTL = GSAP.timeline({
+      scrollTrigger: {
+        trigger: '.text-reveal',
+        start: 'top bottom',
+        end: 'bottom bottom',
+      },
+    });
+
+    const texts = GSAP.utils.toArray('.text-reveal') as Element[];
+
+    texts.forEach((text: Element) => {
+      SplitText(text);
+
+      NeocityTL.from(text.children, {
+        opacity: 0,
+        y: -10,
+        duration: 1,
+        stagger: 0.01,
+        ease: 'elastic',
+      });
+    });
   },
   methods: {
     scrollTo: function (hash: string) {
