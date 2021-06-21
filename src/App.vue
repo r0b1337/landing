@@ -68,25 +68,22 @@ GSAP.registerPlugin(TextPlugin);
 export default defineComponent({
   name: 'App',
   mounted() {
-    const NeocityTL = GSAP.timeline({
-      scrollTrigger: {
-        trigger: '.text-reveal',
-        start: 'top bottom',
-        end: 'bottom bottom',
-      },
-    });
-
     const texts = GSAP.utils.toArray('.text-reveal') as Element[];
 
     texts.forEach((text: Element) => {
       SplitText(text);
 
-      NeocityTL.from(text.children, {
+      GSAP.from(text.children, {
         opacity: 0,
         y: -10,
         duration: 1,
         stagger: 0.01,
         ease: 'elastic',
+        scrollTrigger: {
+          trigger: text,
+          start: 'top bottom',
+          end: 'bottom bottom',
+        },
       });
     });
   },
