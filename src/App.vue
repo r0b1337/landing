@@ -51,6 +51,7 @@
       </Card>
     </Section>
     <div
+      v-if="!mobile"
       id="skills"
       class="bg-gradient-to-r from-red-300 to-blue-300 p-20 h-auto"
     >
@@ -98,6 +99,58 @@
         <span class="text-reveal">Sint voluptate est elit aute deserunt et exercitation esse consectetur anim ullamco reprehenderit laboris. Exercitation amet dolore voluptate amet duis incididunt excepteur ipsum ipsum. Sunt non dolor exercitation veniam consectetur ipsum exercitation laboris mollit aliquip ea. Labore laborum aute magna in laborum. Reprehenderit in excepteur et reprehenderit est id veniam esse id anim aute. Pariatur aute labore voluptate Lorem ut cupidatat consequat adipisicing in fugiat magna minim ad eu. Eu dolor excepteur ad et aliquip.</span>
       </div>
     </div>
+    <div
+      v-show="mobile"
+      class="bg-gradient-to-r from-red-300 to-blue-300 p-20 h-auto text-white flex flex-col gap-y-20"
+    >
+      <div class="flex flex-col gap-y-20">
+        <Card>
+          <img
+            class="h-40"
+            src="/vue.svg"
+            alt="Vue logo"
+          >
+        </Card>
+
+        <span class="text-reveal">Sint voluptate est elit aute deserunt et exercitation esse consectetur anim ullamco reprehenderit laboris. Exercitation amet dolore voluptate amet duis incididunt excepteur ipsum ipsum. Sunt non dolor exercitation veniam consectetur ipsum exercitation laboris mollit aliquip ea. Labore laborum aute magna in laborum. Reprehenderit in excepteur et reprehenderit est id veniam esse id anim aute. Pariatur aute labore voluptate Lorem ut cupidatat consequat adipisicing in fugiat magna minim ad eu. Eu dolor excepteur ad et aliquip.</span>
+      </div>
+
+      <div class="flex flex-col gap-y-20">
+        <Card>
+          <img
+            class="h-40"
+            src="/react.svg"
+            alt="react logo"
+          >
+        </Card>
+
+        <span class="text-reveal">Sint voluptate est elit aute deserunt et exercitation esse consectetur anim ullamco reprehenderit laboris. Exercitation amet dolore voluptate amet duis incididunt excepteur ipsum ipsum. Sunt non dolor exercitation veniam consectetur ipsum exercitation laboris mollit aliquip ea. Labore laborum aute magna in laborum. Reprehenderit in excepteur et reprehenderit est id veniam esse id anim aute. Pariatur aute labore voluptate Lorem ut cupidatat consequat adipisicing in fugiat magna minim ad eu. Eu dolor excepteur ad et aliquip.</span>
+      </div>
+
+      <div class="flex flex-col gap-y-20">
+        <Card>
+          <img
+            class="h-40"
+            src="/angular.svg"
+            alt="angular logo"
+          >
+        </Card>
+
+        <span class="text-reveal">Sint voluptate est elit aute deserunt et exercitation esse consectetur anim ullamco reprehenderit laboris. Exercitation amet dolore voluptate amet duis incididunt excepteur ipsum ipsum. Sunt non dolor exercitation veniam consectetur ipsum exercitation laboris mollit aliquip ea. Labore laborum aute magna in laborum. Reprehenderit in excepteur et reprehenderit est id veniam esse id anim aute. Pariatur aute labore voluptate Lorem ut cupidatat consequat adipisicing in fugiat magna minim ad eu. Eu dolor excepteur ad et aliquip.</span>
+      </div>
+
+      <div class="flex flex-col gap-y-20">
+        <Card>
+          <img
+            class="h-40"
+            src="/ionic.svg"
+            alt="ionic logo"
+          >
+        </Card>
+
+        <span class="text-reveal">Sint voluptate est elit aute deserunt et exercitation esse consectetur anim ullamco reprehenderit laboris. Exercitation amet dolore voluptate amet duis incididunt excepteur ipsum ipsum. Sunt non dolor exercitation veniam consectetur ipsum exercitation laboris mollit aliquip ea. Labore laborum aute magna in laborum. Reprehenderit in excepteur et reprehenderit est id veniam esse id anim aute. Pariatur aute labore voluptate Lorem ut cupidatat consequat adipisicing in fugiat magna minim ad eu. Eu dolor excepteur ad et aliquip.</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -122,7 +175,13 @@ export default defineComponent({
     };
   },
   mounted() {
-    window.onresize = () => this.mobile = isMobile();
+    this.initCardSwitching();
+
+    window.onresize = () => {
+      this.mobile = isMobile();
+
+      if (!this.mobile) setTimeout(this.initCardSwitching);
+    };
 
     const texts = GSAP.utils.toArray('.text-reveal') as Element[];
 
@@ -142,70 +201,71 @@ export default defineComponent({
         },
       });
     });
-
-    ScrollTrigger.create({
-      trigger: '#skills',
-      start: 'top top',
-      end: 'bottom bottom',
-      pin: '.pin',
-      pinSpacing: false,
-    });
-
-    const spans = GSAP.utils.toArray('#skills span') as Element[];
-    const cards = GSAP.utils.toArray('#skills .card') as Element[];
-
-    spans.forEach((span, i: number) => {
-      const card =  cards[i];
-      const prev = cards[i - 1];
-      const next = cards[i + 1];
-      const odd = !!(i % 2);
-      const from = { rotateY: 0, left: '50%', opacity: 0, scale: 1 };
-      const to = { rotateY: 20 * (!odd ? 1 : -1), left: !odd ? '25%' : '75%', opacity: 1, duration: 1, ease: 'elastic.out(0.5, 0.4)', overwrite: true };
-
-      GSAP.set(card, {opacity: 0, translateY: '-50%'});
-
-      const onEnter = () => {
-        GSAP.fromTo(card, from, to);
-
-        if (prev) GSAP.fromTo(
-          prev,
-          { rotateY: 20 * (odd ? 1 : -1), left: odd ? '25%' : '75%', opacity: 1, duration: 1 },
-          { scale: 0, opacity: 0, duration: 1, ease: 'elastic.out(0.5, 0.4)', overwrite: true },
-        );
-      };
-
-      const onEnterBack = () => {
-        GSAP.fromTo(card, from, to);
-
-        if (next) GSAP.fromTo(
-          next,
-          { rotateY: 20 * (odd ? 1 : -1), left: odd ? '25%' : '75%', opacity: 1, duration: 1, ease: 'elastic.out(0.5, 0.4)' },
-          { scale: 0, opacity: 0, duration: 1, ease: 'elastic.out(0.5, 0.4)', overwrite: true },
-        );
-      };
-
-      const onLeaveBack = () => {
-        if (i !== 0) return;
-
-        GSAP.fromTo(
-          card,
-          { rotateY: 20 * (!odd ? 1 : -1), left: !odd ? '25%' : '75%', opacity: 1, duration: 1 },
-          { rotateY: 0, left: '50%', opacity: 0, scale: 1, ease: 'elastic.out(0.5, 0.4)', overwrite: true },
-        );
-      };
-
-      ScrollTrigger.create({
-        trigger: span,
-        start: '50% bottom',
-        onEnter,
-        onEnterBack,
-        onLeaveBack,
-      });
-    });
   },
   methods: {
     scrollTo: function (hash: string) {
       location.hash = hash;
+    },
+    initCardSwitching: function () {
+      ScrollTrigger.create({
+        trigger: '#skills',
+        start: 'top top',
+        end: 'bottom bottom',
+        pin: '.pin',
+        pinSpacing: false,
+      });
+
+      const spans = GSAP.utils.toArray('#skills span') as Element[];
+      const cards = GSAP.utils.toArray('#skills .card') as Element[];
+
+      spans.forEach((span, i: number) => {
+        const card =  cards[i];
+        const prev = cards[i - 1];
+        const next = cards[i + 1];
+        const odd = !!(i % 2);
+        const from = { rotateY: 0, left: '50%', opacity: 0, scale: 1 };
+        const to = { rotateY: 20 * (!odd ? 1 : -1), left: !odd ? '25%' : '75%', opacity: 1, duration: 1, ease: 'elastic.out(0.5, 0.4)', overwrite: true };
+
+        GSAP.set(card, {opacity: 0, translateY: '-50%'});
+
+        const onEnter = () => {
+          GSAP.fromTo(card, from, to);
+
+          if (prev) GSAP.fromTo(
+            prev,
+            { rotateY: 20 * (odd ? 1 : -1), left: odd ? '25%' : '75%', opacity: 1, duration: 1 },
+            { scale: 0, opacity: 0, duration: 1, ease: 'elastic.out(0.5, 0.4)', overwrite: true },
+          );
+        };
+
+        const onEnterBack = () => {
+          GSAP.fromTo(card, from, to);
+
+          if (next) GSAP.fromTo(
+            next,
+            { rotateY: 20 * (odd ? 1 : -1), left: odd ? '25%' : '75%', opacity: 1, duration: 1, ease: 'elastic.out(0.5, 0.4)' },
+            { scale: 0, opacity: 0, duration: 1, ease: 'elastic.out(0.5, 0.4)', overwrite: true },
+          );
+        };
+
+        const onLeaveBack = () => {
+          if (i !== 0) return;
+
+          GSAP.fromTo(
+            card,
+            { rotateY: 20 * (!odd ? 1 : -1), left: !odd ? '25%' : '75%', opacity: 1, duration: 1 },
+            { rotateY: 0, left: '50%', opacity: 0, scale: 1, ease: 'elastic.out(0.5, 0.4)', overwrite: true },
+          );
+        };
+
+        ScrollTrigger.create({
+          trigger: span,
+          start: '50% bottom',
+          onEnter,
+          onEnterBack,
+          onLeaveBack,
+        });
+      });
     },
   },
 });
