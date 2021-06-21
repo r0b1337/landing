@@ -151,10 +151,10 @@ export default defineComponent({
       pinSpacing: false,
     });
 
-    const spans = GSAP.utils.toArray('#skills span');
+    const spans = GSAP.utils.toArray('#skills span') as Element[];
     const cards = GSAP.utils.toArray('#skills .card') as Element[];
 
-    spans.forEach((span: any, i: number) => {
+    spans.forEach((span, i: number) => {
       const card =  cards[i];
       const prev = cards[i - 1];
       const next = cards[i + 1];
