@@ -61,13 +61,21 @@ import GSAP from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import TextPlugin from 'gsap/TextPlugin';
 import SplitText from './utils/split-text';
+import isMobile from './utils/is-mobile';
 
 GSAP.registerPlugin(ScrollTrigger);
 GSAP.registerPlugin(TextPlugin);
 
 export default defineComponent({
   name: 'App',
+  data() {
+    return {
+      mobile: isMobile(),
+    };
+  },
   mounted() {
+    window.onresize = () => this.mobile = isMobile();
+
     const texts = GSAP.utils.toArray('.text-reveal') as Element[];
 
     texts.forEach((text: Element) => {
