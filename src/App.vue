@@ -50,6 +50,54 @@
         >
       </Card>
     </Section>
+    <div
+      id="skills"
+      class="bg-gradient-to-r from-red-300 to-blue-300 p-20 h-auto"
+    >
+      <div
+        class="pin relative h-screen w-screen"
+        style="perspective: 800px;"
+      >
+        <Card>
+          <img
+            class="h-40"
+            src="/vue.svg"
+            alt="Vue logo"
+          >
+        </Card>
+        <Card>
+          <img
+            class="h-40"
+            src="/react.svg"
+            alt="React logo"
+          >
+        </Card>
+        <Card>
+          <img
+            class="h-40"
+            src="/angular.svg"
+            alt="Angular logo"
+          >
+        </Card>
+        <Card>
+          <img
+            class="h-40"
+            src="/ionic.svg"
+            alt="Ionic logo"
+          >
+        </Card>
+      </div>
+
+      <div
+        class="flex flex-col w-full text-white"
+        style="row-gap: 100vh;"
+      >
+        <span class="text-reveal">Sint voluptate est elit aute deserunt et exercitation esse consectetur anim ullamco reprehenderit laboris. Exercitation amet dolore voluptate amet duis incididunt excepteur ipsum ipsum. Sunt non dolor exercitation veniam consectetur ipsum exercitation laboris mollit aliquip ea. Labore laborum aute magna in laborum. Reprehenderit in excepteur et reprehenderit est id veniam esse id anim aute. Pariatur aute labore voluptate Lorem ut cupidatat consequat adipisicing in fugiat magna minim ad eu. Eu dolor excepteur ad et aliquip.</span>
+        <span class="text-reveal">Sint voluptate est elit aute deserunt et exercitation esse consectetur anim ullamco reprehenderit laboris. Exercitation amet dolore voluptate amet duis incididunt excepteur ipsum ipsum. Sunt non dolor exercitation veniam consectetur ipsum exercitation laboris mollit aliquip ea. Labore laborum aute magna in laborum. Reprehenderit in excepteur et reprehenderit est id veniam esse id anim aute. Pariatur aute labore voluptate Lorem ut cupidatat consequat adipisicing in fugiat magna minim ad eu. Eu dolor excepteur ad et aliquip.</span>
+        <span class="text-reveal">Sint voluptate est elit aute deserunt et exercitation esse consectetur anim ullamco reprehenderit laboris. Exercitation amet dolore voluptate amet duis incididunt excepteur ipsum ipsum. Sunt non dolor exercitation veniam consectetur ipsum exercitation laboris mollit aliquip ea. Labore laborum aute magna in laborum. Reprehenderit in excepteur et reprehenderit est id veniam esse id anim aute. Pariatur aute labore voluptate Lorem ut cupidatat consequat adipisicing in fugiat magna minim ad eu. Eu dolor excepteur ad et aliquip.</span>
+        <span class="text-reveal">Sint voluptate est elit aute deserunt et exercitation esse consectetur anim ullamco reprehenderit laboris. Exercitation amet dolore voluptate amet duis incididunt excepteur ipsum ipsum. Sunt non dolor exercitation veniam consectetur ipsum exercitation laboris mollit aliquip ea. Labore laborum aute magna in laborum. Reprehenderit in excepteur et reprehenderit est id veniam esse id anim aute. Pariatur aute labore voluptate Lorem ut cupidatat consequat adipisicing in fugiat magna minim ad eu. Eu dolor excepteur ad et aliquip.</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -94,6 +142,66 @@ export default defineComponent({
         },
       });
     });
+
+    ScrollTrigger.create({
+      trigger: '#skills',
+      start: 'top top',
+      end: 'bottom bottom',
+      pin: '.pin',
+      pinSpacing: false,
+    });
+
+    const spans = GSAP.utils.toArray('#skills span');
+    const cards = GSAP.utils.toArray('#skills .card') as Element[];
+
+    spans.forEach((span: any, i: number) => {
+      const card =  cards[i];
+      const prev = cards[i - 1];
+      const next = cards[i + 1];
+      const odd = !!(i % 2);
+      const from = { rotateY: 0, left: '50%', opacity: 0, scale: 1 };
+      const to = { rotateY: 20 * (!odd ? 1 : -1), left: !odd ? '25%' : '75%', opacity: 1, duration: 1, ease: 'elastic.out(0.5, 0.4)', overwrite: true };
+
+      GSAP.set(card, {opacity: 0, translateY: '-50%'});
+
+      const onEnter = () => {
+        GSAP.fromTo(card, from, to);
+
+        if (prev) GSAP.fromTo(
+          prev,
+          { rotateY: 20 * (odd ? 1 : -1), left: odd ? '25%' : '75%', opacity: 1, duration: 1 },
+          { scale: 0, opacity: 0, duration: 1, ease: 'elastic.out(0.5, 0.4)', overwrite: true },
+        );
+      };
+
+      const onEnterBack = () => {
+        GSAP.fromTo(card, from, to);
+
+        if (next) GSAP.fromTo(
+          next,
+          { rotateY: 20 * (odd ? 1 : -1), left: odd ? '25%' : '75%', opacity: 1, duration: 1, ease: 'elastic.out(0.5, 0.4)' },
+          { scale: 0, opacity: 0, duration: 1, ease: 'elastic.out(0.5, 0.4)', overwrite: true },
+        );
+      };
+
+      const onLeaveBack = () => {
+        if (i !== 0) return;
+
+        GSAP.fromTo(
+          card,
+          { rotateY: 20 * (!odd ? 1 : -1), left: !odd ? '25%' : '75%', opacity: 1, duration: 1 },
+          { rotateY: 0, left: '50%', opacity: 0, scale: 1, ease: 'elastic.out(0.5, 0.4)', overwrite: true },
+        );
+      };
+
+      ScrollTrigger.create({
+        trigger: span,
+        start: '50% bottom',
+        onEnter,
+        onEnterBack,
+        onLeaveBack,
+      });
+    });
   },
   methods: {
     scrollTo: function (hash: string) {
@@ -103,7 +211,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss">
 html {
   scroll-behavior: smooth;
 }
@@ -114,5 +222,30 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.pin-spacer { width: 100% !important; }
+.pin {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: unset !important;
+  max-height: unset !important;
+  pointer-events: none;
+
+  > * {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+#skills {
+  span { @apply max-w-lg font-bold; }
+  span:nth-child(2n+1) {
+    align-self: flex-end;
+  }
 }
 </style>
