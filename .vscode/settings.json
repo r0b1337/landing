@@ -12,6 +12,7 @@
         "settings",
         "components",
         "deps",
-        "utils"
+        "utils",
+        "App"
     ]
 }
